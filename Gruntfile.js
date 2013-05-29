@@ -16,7 +16,7 @@ module.exports = function(grunt) {
                 options: {
                     baseUrl: 'asset/js',
                     name: 'main',
-                    out: 'public/js/xmatome.min.js'
+                    out: 'pub/js/benchmark.min.js'
                 }
             }
         },
@@ -45,13 +45,6 @@ module.exports = function(grunt) {
             }
         },
         watch: {
-            nodemon: {
-                files: ['src/**/*.js'],
-                tasks: [],
-                options: {
-                    livereload: true
-                }
-            },
             requirejs: {
                 files: ['asset/js/**/*.js'],
                 tasks: ['requirejs'],
