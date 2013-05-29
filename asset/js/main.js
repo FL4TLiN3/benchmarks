@@ -41,7 +41,7 @@
                 var template = '<div id="%%ID%%" class="result"></div>';
 
                 for (var i = 0, size = modules.length; i < size; i++) {
-                    modules[i].id = '' + parseInt(Math.random() * 1e6);
+                    modules[i].id = '' + parseInt(Math.random() * 1e6, 10);
                     html += template.replace('%%ID%%', modules[i].id);
                 }
 
