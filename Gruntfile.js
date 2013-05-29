@@ -6,7 +6,7 @@ module.exports = function(grunt) {
             server: {
                 options: {
                     hostname: '*',
-                    port: 3000,
+                    port: 3001,
                     base: 'pub/'
                 }
             }
@@ -73,14 +73,6 @@ module.exports = function(grunt) {
                     livereload: true
                 }
             }
-        },
-        concurrent: {
-            dev: {
-                tasks: ['connect', 'watch'],
-                options: {
-                    logConcurrentOutput: true
-                }
-            }
         }
     });
 
@@ -90,5 +82,5 @@ module.exports = function(grunt) {
         }
     }
 
-    grunt.registerTask('dev', ['concurrent:dev']);
+    grunt.registerTask('dev', ['connect', 'watch']);
 };
