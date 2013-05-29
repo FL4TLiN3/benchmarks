@@ -6,6 +6,7 @@
 
     require(
         [
+            'cast/string',
             'cast/integer',
             'cast/float'
         ],
