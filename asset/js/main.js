@@ -6,13 +6,22 @@
 
     require(
         [
-            'cast/main'
+            'cast/integer',
+            'cast/float'
         ],
         function() {
             var modules = [].slice.apply(arguments);
-            modules.forEach(function(module) {
-                module.start();
-            });
+            (function run(pointer) {
+                var callback = function() {
+                    run(pointer + 1);
+                };
+                if (modules.length > pointer) {
+                    setTimeout(function() {
+                        document.write('start benchmark "' + modules[pointer].title + '"<br>');
+                        modules[pointer].start(callback);
+                    }, 1);
+                }
+            })(0);
         }
     );
 })();
