@@ -18,6 +18,9 @@
                 benchmarks = modules.slice(-numBenchmarks),
                 Const = modules[0];
 
+            var container = createContainer(benchmarks);
+            document.body.appendChild(container);
+
             (function run(pointer) {
                 var callback = function() {
                     run(pointer + 1);
@@ -30,10 +33,20 @@
                 }
             })(0);
 
-            function appendContainer(modules) {
-                var id = module.id = '' + parseInt(Math.random() * 1e6);
+            function createContainer(modules) {
                 var container = document.createElement('div');
                 container.id = Const.ID_CONTAINER;
+
+                var html = '';
+                var template = '<div id="%%ID%%" class="result"></div>';
+
+                modules.forEach(function(module) {
+                    module.id = '' + parseInt(Math.random() * 1e6);
+                    html += template.replace('%%ID%%', module.id);
+                });
+
+                container.innerHTML = html;
+                return container;
             }
         }
     );
