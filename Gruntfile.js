@@ -2,14 +2,12 @@ module.exports = function(grunt) {
     var pkg = grunt.file.readJSON('package.json');
 
     grunt.initConfig({
-        nodemon: {
-            development: {
+        connect: {
+            server: {
                 options: {
-                    file: 'server.js',
-                    args: ['development'],
-                    watchedExtensions: ['js', 'json'],
-                    watchedFolders: ['src'],
-                    debug: true
+                    hostname: '*',
+                    port: 3000,
+                    base: 'pub/'
                 }
             }
         },
@@ -46,19 +44,6 @@ module.exports = function(grunt) {
                 }
             }
         },
-        simplemocha: {
-            options: {
-                globals: ['should'],
-                timeout: 3000,
-                ignoreLeaks: false,
-                grep: '*-test',
-                ui: 'bdd',
-                reporter: 'tap'
-            },
-            all: {
-                src: ['test/**/*.js']
-            }
-        },
         watch: {
             nodemon: {
                 files: ['src/**/*.js'],
@@ -91,7 +76,7 @@ module.exports = function(grunt) {
         },
         concurrent: {
             dev: {
-                tasks: ['nodemon', 'watch', 'simplemocha'],
+                tasks: ['connect', 'watch'],
                 options: {
                     logConcurrentOutput: true
                 }
