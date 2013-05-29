@@ -22,6 +22,12 @@ define(['benchmark'], function(Benchmark) {
         }
         done();
     });
+    benchmark.add('minus zero', function(done) {
+        for (var i = 0; i < times; i++) {
+            STRING - 0;
+        }
+        done();
+    });
 
     return benchmark;
 });
