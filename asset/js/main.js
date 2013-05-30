@@ -40,10 +40,10 @@
                 var html = '';
                 var template = '<div id="%%ID%%" class="result"></div>';
 
-                modules.forEach(function(module) {
-                    module.id = '' + parseInt(Math.random() * 1e6);
-                    html += template.replace('%%ID%%', module.id);
-                });
+                for (var i = 0, size = modules.length; i < size; i++) {
+                    modules[i].id = '' + parseInt(Math.random() * 1e6);
+                    html += template.replace('%%ID%%', modules[i].id);
+                }
 
                 container.innerHTML = html;
                 return container;
