@@ -10,21 +10,23 @@ define([], function() {
             fnc: fnc
         });
     };
-    Benchmark.prototype.start = function(done) {
+    Benchmark.prototype.start = function(elem, done) {
         var ct = 0;
         var self = this;
         (function test(ct) {
             var execTask = function(task) {
                 var startAt = Date.now();
-                $(self.id).innerHTML += task.description + ' start... ';
                 task.fnc(function() {
-                    $(self.id).innerHTML += 'done! in ' + (Date.now() - startAt) + 'ms<br>';
+                    var li = $(elem).appendNew('li', '', 'benchmark');
+                    $(li).appendNew('h3', '', 'description', task.description);
+                    $(li).appendNew('p', '', 'spent', (Date.now() - startAt) + 'ms');
+                    $(li).appendNew('pre', '', 'code', task.fnc.toString());
                     test(ct + 1);
                 });
             };
 
             if (self.tasks.length > ct) {
-                setTimeout(function() { execTask(self.tasks[ct]); }, 500);
+                setTimeout(function() { execTask(self.tasks[ct]); }, 100);
             } else {
                 done();
             }

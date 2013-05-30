@@ -1,5 +1,35 @@
-var $ = function(id) {
-    return document.getElementById(id);
+var $ = function(arg) {
+    var elem;
+    if (typeof arg === "string") {
+        elem = $.is= document.getElementById(arg);
+    } else if($.isElement(arg)) {
+        elem = arg;
+    }
+    elem.appendNew = function(nodeType, id, className, text) {
+        var newElem = document.createElement(nodeType);
+        newElem.id = id;
+        newElem.className = className;
+        if (text) newElem.appendChild(document.createTextNode(text));
+        elem.appendChild(newElem);
+        return newElem;
+    };
+    return elem;
+};
+
+$.isNode = function(o) {
+    return (
+        typeof Node === "object" ?
+            o instanceof Node :
+            o && typeof o === "object" && typeof o.nodeType === "number" && typeof o.nodeName==="string"
+    );
+};
+
+$.isElement = function(o) {
+    return (
+        typeof HTMLElement === "object" ?
+            o instanceof HTMLElement :
+            o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName==="string"
+    );
 };
 
 (function() {
@@ -41,8 +71,9 @@ var $ = function(id) {
                 };
                 if (benchmarks.length > pointer) {
                     setTimeout(function() {
-                        $(benchmark.id).innerHTML += 'start benchmark "' + benchmark.title + '"<br>';
-                        benchmark.start(callback);
+                        $(benchmark.id).appendNew('h2', 'title', 'title', benchmark.title);
+                        var tasks = $(benchmark.id).appendNew('ul', 'tasks', 'tasks');
+                        benchmark.start(tasks, callback);
                     }, 1);
                 }
             })(0);
