@@ -1,3 +1,6 @@
+var $ = function(id) {
+    return document.getElementById(id);
+};
 
 (function() {
     var scripts = document.getElementsByTagName('script');
@@ -27,7 +30,7 @@
                 };
                 if (benchmarks.length > pointer) {
                     setTimeout(function() {
-                        document.write('start benchmark "' + benchmarks[pointer].title + '"<br>');
+                        $(benchmarks[pointer].id).innerHTML += 'start benchmark "' + benchmarks[pointer].title + '"<br>';
                         benchmarks[pointer].start(callback);
                     }, 1);
                 }
