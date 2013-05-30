@@ -2,29 +2,29 @@
 define([], function() {
     function Benchmark(title) {
         this.title = title;
-        this.benchmarks = [];
+        this.tasks = [];
     }
     Benchmark.prototype.add = function(description, fnc) {
-        this.benchmarks.push({
+        this.tasks.push({
             description: description,
             fnc: fnc
         });
     };
     Benchmark.prototype.start = function(done) {
-        var pointer = 0;
+        var ct = 0;
         var self = this;
-        (function test(pointer) {
-            var execBenchmark = function(benchmark) {
+        (function test(ct) {
+            var execTask = function(task) {
                 var startAt = Date.now();
-                $(benchmark.id).innerHTML += benchmark.description + ' start... ';
-                benchmark.fnc(function() {
-                    $(benchmark.id).innerHTML += 'done! in ' + (Date.now() - startAt) + 'ms<br>';
-                    test(pointer + 1);
+                $(self.id).innerHTML += task.description + ' start... ';
+                task.fnc(function() {
+                    $(self.id).innerHTML += 'done! in ' + (Date.now() - startAt) + 'ms<br>';
+                    test(ct + 1);
                 });
             };
 
-            if (self.benchmarks.length > pointer) {
-                setTimeout(function() { execBenchmark(self.benchmarks[pointer]); }, 500);
+            if (self.tasks.length > ct) {
+                setTimeout(function() { execTask(self.tasks[ct]); }, 500);
             } else {
                 done();
             }
